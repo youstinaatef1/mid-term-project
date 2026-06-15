@@ -16,5 +16,3 @@ module "vpc" {
  Environment = "dev"
  }
 }
-
-Seen by Esraa Essam at 2:15 PM. Seen by Rowan Khalil at 2:14 PM. Seen by Semon Benyamin Yacoub at 2:15 PM. Seen by Mariam Gameel at 2:15 PM. Seen by Doaa Gamal at 2:16 PM. Seen by Afaf Tawfek at 2:16 PM. Seen by Mohammed Saeed at 2:16 PM.
