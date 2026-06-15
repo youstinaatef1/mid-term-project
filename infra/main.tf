@@ -42,52 +42,52 @@ data "aws_ami" "amazon_linux" {
 }
 
 resource "aws_security_group" "web" {
- name        = "web-sg"
+ name = "web-sg"
  description = "Allow HTTP and SSH access"
- vpc_id      = module.vpc.vpc_id
+ vpc_id = module.vpc.vpc_id
 
  ingress {
-   description = "HTTP"
-   from_port   = 80
-   to_port     = 80
-   protocol    = "tcp"
-   cidr_blocks = ["0.0.0.0/0"]
+ description = "HTTP"
+ from_port = 80
+ to_port = 80
+ protocol = "tcp"
+ cidr_blocks = ["0.0.0.0/0"]
  }
 
  ingress {
-   description = "SSH"
-   from_port   = 22
-   to_port     = 22
-   protocol    = "tcp"
-   cidr_blocks = ["0.0.0.0/0"]
+ description = "SSH"
+ from_port = 22
+ to_port = 22
+ protocol = "tcp"
+ cidr_blocks = ["0.0.0.0/0"]
  }
 
  egress {
-   from_port   = 0
-   to_port     = 0
-   protocol    = "-1"
-   cidr_blocks = ["0.0.0.0/0"]
+ from_port = 0
+ to_port = 0
+ protocol = "-1"
+ cidr_blocks = ["0.0.0.0/0"]
  }
 
  tags = {
-   Name        = "web-sg"
-   Environment = var.environment
+ Name = "web-sg"
+ Environment = var.environment
  }
 }
 
-module "EC2" {
- source  = "terraform-aws-modules/ec2-instance/aws"
- version = "~> 4.0"
+module "ec2" {
+  source  = "terraform-aws-modules/ec2-instance/aws"
+  version = "~> 4.0"
 
- name                    = "web-server"
- ami                     = data.aws_ami.amazon_linux.id
- instance_type           = var.instance_type
- subnet_ids              = [module.vpc.public_subnets[0]]
- vpc_security_group_ids  = [aws_security_group.web.id]
- associate_public_ip_address = true
+  name                        = "web-server"
+  ami                         = data.aws_ami.amazon_linux.id
+  instance_type               = var.instance_type
+  subnet_ids                  = [module.vpc.public_subnets[0]]
+  vpc_security_group_ids      = [aws_security_group.web.id]
+  associate_public_ip_address = true
 
- tags = {
-   Name        = "web-server"
-   Environment = var.environment
- }
+  tags = {
+    Name        = "web-server"
+    Environment = var.environment
+  }
 }
